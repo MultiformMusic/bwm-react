@@ -3,8 +3,50 @@ import { connect } from 'react-redux';
 import RentalList from './RentalList';
 import * as actions from 'actions';
 
-class RentalListing extends React.Component {
+/*function withAlert(WrappedComponent) {
 
+    return class extends React.Component {
+
+        alertUser() {
+            alert('Wake up !!');
+        }
+
+        render() {
+            return <WrappedComponent {...this.props} alertUser={this.alertUser} />
+        }
+    }
+}
+
+function withDanger(WrappedComponent) {
+
+    return class extends React.Component {
+
+        danger() {
+            alert('Danger');
+        }
+
+        render() {
+
+            return <WrappedComponent {...this.props} danger={this.danger} />
+        }
+    }
+
+}*/
+
+/*class AlertRentalListing extends React.Component {
+
+    alertUser() {
+        alert('alert user');
+    }
+
+    render() {
+        return(
+            <RentalListing {...this.props} alertUser={this.alertUser} />
+        )
+    }
+}*/
+
+class RentalListing extends React.Component {
 
     componentWillMount() {
         this.props.dispatch(actions.fetchRentals());
@@ -23,7 +65,6 @@ class RentalListing extends React.Component {
             <section id='rentalListing'>
                 <h1 className='page-title'>Your Home All Around the World</h1>
                 <RentalList rentals={this.props.rentals} />
-                <button onClick={this.addRental} >Add Rental</button>
             </section>
             
         );
