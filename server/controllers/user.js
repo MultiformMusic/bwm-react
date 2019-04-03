@@ -68,6 +68,7 @@ exports.register = function(req, res) {
         });       
         
         user.save(function(err) {
+            
             if (err) {
                 return res.status(422).send({errors: MongooseHelpers.normalizeErrors(err.errors)}); 
             }
