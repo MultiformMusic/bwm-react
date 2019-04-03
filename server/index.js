@@ -9,7 +9,7 @@ const userRoutes = require('./routes/users');
 mongoose.connect(config.DB_URI, { useNewUrlParser: true }).then(
     () => {
         const fakeDb = new FakeDb();
-        fakeDb.seekDb();
+        //fakeDb.seekDb();
     },
     (err) => {
         console.log(err);
