@@ -19,12 +19,10 @@ import {
          }
      
          const invalidate= () => {
-           debugger;
              localStorage.removeItem(tokenKey);
          }
      
          const saveToken= (token) => {
-             debugger;
              localStorage.setItem(tokenKey, token);
          }
      
@@ -38,7 +36,6 @@ import {
          }
      
          const isAuthenticated= () => {
-           debugger;
              const token = getToken();
      
              return (token && isValid(token)) ? true : false;
@@ -122,7 +119,6 @@ const loginFailure = errors => {
 export const checkAuthState = () => {
  
   return dispatch => {
-    debugger;
     if (isAuthenticated()) {
       dispatch(loginSuccess());    }
   }
@@ -131,10 +127,9 @@ export const checkAuthState = () => {
 export const login = userData => {
 
   return dispatch => {
-    return axios.post('api/v1/users/auth', {...userData})
+    return axios.post('api/v1/users/auth', userData)
                  .then(res => res.data)
                  .then(token => {
-                   debugger;
                    saveToken(token);
                    dispatch(loginSuccess());
                  })
@@ -151,4 +146,11 @@ export const lougout = () => {
   return {
     type: LOGOUT
   }
+}
+
+export const createBooking = (booking) => {
+
+  return axiosInstance.post('bookings', booking)
+                       .then(res => res.data)
+                       .catch(error => Promise.reject(error.response.data.errors))
 }

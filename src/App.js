@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   logout() {
-    debugger;
     store.dispatch(actions.lougout());
   }
 
