@@ -15,7 +15,6 @@ class AuthService {
     }
 
     saveToken(token) {
-        debugger;
         localStorage.setItem(this.tokenKey, token);
     }
 

@@ -20,7 +20,6 @@ const isValid= (token) => {
 }
 
 const isAuthenticated= () => {
-  debugger;
     const token = getToken();
 
     return (token && isValid(token)) ? true : false;

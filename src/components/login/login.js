@@ -12,7 +12,6 @@ class Login extends React.Component {
 
     render() {
 
-        debugger;
         const { isAuth, errors } = this.props.auth;
         const { successRegister } = this.props.location.state || false;
 
