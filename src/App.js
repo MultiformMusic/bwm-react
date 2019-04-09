@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import 'App.css';
 import RentalListing from 'components/rental/rental-listing/RentalListing';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
@@ -11,6 +11,8 @@ import * as actions from './actions';
 import Header from './components/shared/Header';
 import { ProtectedRoute } from './components/shared/auth/ProtectedRoute';
 import { LoggedInRoute } from './components/shared/auth/LoggedInRoute';
+import RentalSearchListing from './components/rental/rental-listing/RentalSearchListing';
+import { RentalCreate } from './components/rental/rental-create/RentalCreate';
 
 const store = 
 init();
@@ -41,12 +43,15 @@ class App extends Component {
             <Header logout={this.logout} />
             
             <div className='container'>
-              <Route exact path="/"  render={() => { return <Redirect to="/rentals" /> }} />
-              <Route exact path="/rentals" component={RentalListing} />
-              <ProtectedRoute exact path="/rentals/:id" component={RentalDetail} />
-              <Route exact path="/login" component={Login} />
-              <LoggedInRoute exact path="/register" component={Register} />
-
+              <Switch>
+                <Route exact path="/"  render={() => { return <Redirect to="/rentals" /> }} />
+                <Route exact path="/rentals" component={RentalListing} />
+                <Route exact path="/rentals/:city/homes" component={RentalSearchListing} />
+                <ProtectedRoute exact path="/rentals/new" component={RentalCreate} />
+                <ProtectedRoute exact path="/rentals/:id" component={RentalDetail} />
+                <Route exact path="/login" component={Login} />
+                <LoggedInRoute exact path="/register" component={Register} />
+              </Switch>
             </div>
 
           </div>

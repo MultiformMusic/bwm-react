@@ -32,6 +32,11 @@ class AuthService {
 
         return (token && this.isValid(token)) ? true : false;
     }
+
+    getUsername() {
+        return jwt.decode(this.getToken()).username;
+    }
+
 }
 
 export default new AuthService();
