@@ -1,0 +1,10 @@
+  feature-search-server[m
+  feature/auth-client[m
+  feature/auth-server[m
+  feature/booking-client[m
+  feature/bookings-server[m
+* [32mfeature/create-search-client[m
+  feature/rental-detail-client[m
+  feature/rental-listing[m
+  feature/server-setup[m
+  master[m
