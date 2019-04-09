@@ -2,7 +2,8 @@ import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/types';
 
 const INITIAL_STATE = {
     isAuth: false,
-    errors: []
+    errors: [],
+    username: ''
 };
 
 
@@ -13,7 +14,7 @@ switch (action.type) {
 
    case LOGIN_SUCCESS:
 
-       return Object.assign({} , state, {isAuth: true, errors: []});
+       return Object.assign({} , state, {isAuth: true, errors: [], username: action.username});
 
    case LOGIN_FAILURE:
         
@@ -21,7 +22,7 @@ switch (action.type) {
 
    case LOGOUT:
 
-        return Object.assign({} , state, {isAuth: false, errors: []});
+        return Object.assign({} , state, {isAuth: false, errors: [], username: ''});
 
 
    default: 
