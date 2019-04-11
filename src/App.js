@@ -13,6 +13,8 @@ import { ProtectedRoute } from './components/shared/auth/ProtectedRoute';
 import { LoggedInRoute } from './components/shared/auth/LoggedInRoute';
 import RentalSearchListing from './components/rental/rental-listing/RentalSearchListing';
 import { RentalCreate } from './components/rental/rental-create/RentalCreate';
+import { RentalManage } from './components/rental/rental-manage/RentalManage';
+import BookingManage from './components/booking/booking-manage/BookingManage';
 
 const store = 
 init();
@@ -47,8 +49,10 @@ class App extends Component {
                 <Route exact path="/"  render={() => { return <Redirect to="/rentals" /> }} />
                 <Route exact path="/rentals" component={RentalListing} />
                 <Route exact path="/rentals/:city/homes" component={RentalSearchListing} />
+                <ProtectedRoute exact path="/rentals/manage" component={RentalManage} />
+                <ProtectedRoute exact path="/bookings/manage" component={BookingManage} />
                 <ProtectedRoute exact path="/rentals/new" component={RentalCreate} />
-                <ProtectedRoute exact path="/rentals/:id" component={RentalDetail} />
+                <Route exact path="/rentals/:id" component={RentalDetail} />
                 <Route exact path="/login" component={Login} />
                 <LoggedInRoute exact path="/register" component={Register} />
               </Switch>

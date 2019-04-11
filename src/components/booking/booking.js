@@ -5,8 +5,10 @@ import * as moment from 'moment';
 import { BookingModal } from './BookingModal';
 import * as actions from '../../actions';
 import { ToastContainer, toast } from 'react-toastify';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-export class Booking extends React.Component {
+class Booking extends React.Component {
 
     constructor(props) {
         super(props);
@@ -140,32 +142,47 @@ export class Booking extends React.Component {
 
     render() {
 
-        const { rental } = this.props;
+        const { rental, auth: { isAuth } } = this.props;
         const {startAt, endAt, guests} = this.state.proposedBooking;
 
         return (
         <div className='booking'>
             <ToastContainer />
             <h3 className='booking-price'>$ {rental.dailyRate} <span className='booking-per-night'>per night</span></h3>
+            
             <hr></hr>
-            <div className='form-group'>
-            <label htmlFor='dates'>Dates</label>
-                <DateRangePicker onApply={this.handleApply} 
-                                 isInvalidDate={this.checkInvalidDate} 
-                                 opens='left' 
-                                 containerStyles={{display: 'block'}} >
+            {
+                !isAuth && 
+                <React.Fragment>
+                    <Link to='/login' className='btn btn-bwm btn-confirm btn-block'>
+                        Loggin to book place
+                    </Link>
+                </React.Fragment>
+            }
+            {
+                isAuth && 
+                <React.Fragment>
+                    <div className='form-group'>
+                    <label htmlFor='dates'>Dates</label>
+                        <DateRangePicker onApply={this.handleApply} 
+                                        isInvalidDate={this.checkInvalidDate} 
+                                        opens='left' 
+                                        containerStyles={{display: 'block'}} >
 
-                    <input ref={this.dateRef} id='dates' type='text' className='form-control'></input>
+                            <input ref={this.dateRef} id='dates' type='text' className='form-control'></input>
 
-                </DateRangePicker>
-            </div>
-            <div className='form-group'>
-            <label htmlFor='guests'>Guests</label>
-            <input onChange={this.selectGuests} type='number' value={this.state.proposedBooking.guests} className='form-control' 
-                   id='guests' placeholder=''></input>
-            </div>
-            <button disabled={!startAt || !endAt || !guests} onClick={this.confirmProposedData} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+                        </DateRangePicker>
+                    </div>
+                    <div className='form-group'>
+                    <label htmlFor='guests'>Guests</label>
+                    <input onChange={this.selectGuests} type='number' value={this.state.proposedBooking.guests} className='form-control' 
+                        id='guests' placeholder=''></input>
+                    </div>
+                    <button disabled={!startAt || !endAt || !guests} onClick={this.confirmProposedData} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+                </React.Fragment>
+            }
             <hr></hr>
+
             <p className='booking-note-title'>People are interested into this house</p>
             <p className='booking-note-text'>
             More than 500 people checked this rental in last month.
@@ -179,3 +196,11 @@ export class Booking extends React.Component {
         )
     }
 }
+
+function mapStateToProps (state) {
+    return {
+       auth: state.auth 
+    }
+}
+
+export default connect(mapStateToProps)(Booking);

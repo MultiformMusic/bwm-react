@@ -73,6 +73,7 @@ exports.getUserBookings = function(req, res) {
                 return res.status(422).send({errors: MongooseHelpers.normalizeErrors(err.errors)});               
             }
 
+            console.log(foundBookings);
             return res.json(foundBookings);
 
 
