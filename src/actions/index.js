@@ -10,6 +10,9 @@ import {
          FETCH_RENTAL_BY_ID_INIT,
          FETCH_RENTALS_FAIL,
          FETCH_RENTALS_INIT,
+         FETCH_USER_BOOKINGS_INIT,
+         FETCH_USER_BOOKINGS_SUCCESS,
+         FETCH_USER_BOOKINGS_FAIL,
          LOGIN_SUCCESS,
          LOGIN_FAILURE,
          LOGOUT } from './types';
@@ -190,4 +193,72 @@ export const createBooking = (booking) => {
   return axiosInstance.post('bookings', booking)
                        .then(res => res.data)
                        .catch(error => Promise.reject(error.response.data.errors))
+}
+
+/** USER BOOKINGS ACTION */
+
+const fetchUserBookingsInit = () => {
+  return {
+    type: FETCH_USER_BOOKINGS_INIT
+  }
+}
+
+const fetchUserBookingsSuccess = (userBookings) => {
+  console.log('fetchUserBookingsSuccess userBookings = ', userBookings);
+  return {
+    type: FETCH_USER_BOOKINGS_SUCCESS,
+    payload: userBookings
+  }
+}
+
+
+const fetchUserBookingsFail = (errors) => {
+  return {
+    type: FETCH_USER_BOOKINGS_FAIL,
+    payload: errors
+  }
+}
+
+
+export const fetchUserBookings = () => {
+
+  return dispatch => {
+
+      dispatch(fetchUserBookingsInit());
+
+      axiosInstance.get('/bookings/manage')
+                    .then(res => res.data)
+                    .then(userBookings => {
+                      console.log(userBookings);
+                      dispatch(fetchUserBookingsSuccess(userBookings));
+                    })
+                    .catch(error => dispatch(fetchUserBookingsFail(error.response.data.errors)))
+                    
+  }
+}
+
+/** USER RENTALS ACTION */
+
+export const getUserRentals = () => {
+
+  return axiosInstance.get('/rentals/manage')
+              .then(
+                res => res.data
+                ,
+                err => Promise.reject(err.response.data.errors)              
+              )
+}
+
+
+export const deleteRental = (rentalId) => {
+
+  return axiosInstance.delete('/rentals/' + rentalId)
+                      .then(
+                        res => res.data
+                                    
+                      )
+                      .catch(err => {
+
+                        Promise.reject(err.response.data.errors)
+                      })                          
 }
