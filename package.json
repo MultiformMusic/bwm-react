@@ -1,6 +1,10 @@
 {
   "name": "react-starter-bwm",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.5.0"
+  },
   "private": true,
   "proxy": {
     "api/v1/*": {
@@ -38,11 +42,13 @@
     "titleize": "^2.0.0"
   },
   "scripts": {
+    "heroku-postbuild":  "npm run build",
     "build-css": "node-sass-chokidar ./src -o ./src",
     "watch-css": "npm run build-css && node-sass-chokidar ./src -o ./src --watch --recursive",
     "start-js": "react-scripts start",
     "build-js": "react-scripts build",
-    "start": "npm-run-all -p watch-css start-js",
+    "start": "npm start --prefix server",
+    "start-dev": "npm-run-all -p watch-css start-js",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
