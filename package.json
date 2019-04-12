@@ -38,7 +38,7 @@
     "react-toastify": "^4.0.0-rc.4",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "heroku-postbuild":  "npm run build",
